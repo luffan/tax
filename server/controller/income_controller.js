@@ -8,7 +8,7 @@ class IncomeController {
         const newIncome = await db.query(
             "INSERT INTO income (sum, year, client_id) values ($1, $2, $3) RETURNING *",
             [
-                sum, year, client_id
+                parseInt(sum), parseInt(year), parseInt(client_id)
             ]
         );
 

@@ -4,7 +4,7 @@ import Table from "./table";
 import DataForm from "./dataForm";
 import {createOrUpdateUsers} from "../actions/users_action";
 
-function DataTable({colNames, getData}) {
+function DataTable({colNames, getData, createOrUpdate}) {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -26,11 +26,9 @@ function DataTable({colNames, getData}) {
 
 
     async function useSubmit(list) {
-        console.log(1);
-        await createOrUpdateUsers(list);
-        console.log(2);
+        console.log(list);
+        await createOrUpdate(list);
         const data = await getData();
-        console.log(3);
         setData(data);
     }
 
