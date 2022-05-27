@@ -34,3 +34,13 @@ export var createOrUpdateExpenses = async (expenses) => {
         alert(e)
     }
 }
+
+export var deleteExpenses = async (id) => {
+    try {
+        const response = await axios.delete(`http://localhost:8080/api/expenses/${id}`)
+        return response.data
+    } catch (e) {
+        alert(e.response.data.message)
+    }
+
+}

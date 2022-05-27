@@ -37,3 +37,13 @@ export var createOrUpdateIncome = async (income) => {
         }
     }
 }
+
+export var deleteIncome = async (id) => {
+    try {
+        const response = await axios.delete(`http://localhost:8080/api/income/${id}`)
+        return response.data
+    } catch (e) {
+        alert(e.response.data.message)
+    }
+
+}
