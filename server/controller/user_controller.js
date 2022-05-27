@@ -3,10 +3,10 @@ const db = require('../db')
 
 class UserController {
     async createUser(req, res) {
-        const {name, surname, middlename, passport_id, login, password, district, income, expenses} = req.body
+        const {name, surname, middlename, passport_id, login, password, district, income_id, expenses_id} = req.body
 
         const newUser = await db.query(
-          "INSERT INTO client (name, surname, middlename, passport_id, login, password, district, income, expenses) values ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
+          "INSERT INTO client (name, surname, middlename, passport_id, login, password, district, income_id, expenses_id) values ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
           [
             name,
             surname,
@@ -15,8 +15,8 @@ class UserController {
             login,
             password,
             district,
-            income,
-            expenses,
+            income_id,
+            expenses_id,
           ]
         );
 
@@ -46,12 +46,12 @@ class UserController {
         login,
         password,
         district,
-        income,
-        expenses,
+        income_id,
+        expenses_id,
       } = req.body;
 
       const user = await db.query(
-        "UPDATE client set name = $1, surname = $2, middlename = $3, passport_id = $4, login = $5, password = $6, district = $7, income = $8, expenses = $9 where id = $10 RETURNING *",
+        "UPDATE client set name = $1, surname = $2, middlename = $3, passport_id = $4, login = $5, password = $6, district = $7, income_id = $8, expenses_id = $9 where id = $10 RETURNING *",
         [
           name,
           surname,
@@ -60,8 +60,8 @@ class UserController {
           login,
           password,
           district,
-          income,
-          expenses,
+          income_id,
+          expenses_id,
           id,
         ]
       );

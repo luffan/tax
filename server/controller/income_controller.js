@@ -3,66 +3,44 @@ const db = require('../db')
 
 class IncomeController {
     async createIncome(req, res) {
-        const {name, surname, middlename, passport_id, login, password, district, income, expenses} = req.body
+        const {sum, year, client_id} = req.body
 
         const newIncome = await db.query(
-            "INSERT INTO client (name, surname, middlename, passport_id, login, password, district, income, expenses) values ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
+            "INSERT INTO income (sum, year, client_id) values ($1, $2, $3) RETURNING *",
             [
-                name,
-                surname,
-                middlename,
-                passport_id,
-                login,
-                password,
-                district,
-                income,
-                expenses,
+                sum, year, client_id
             ]
         );
 
-        res.json(newPerson.rows[0])
+        res.json(newIncome.rows[0])
     }
 
     async getIncome(req, res) {
-        const users = await db.query('SELECT * FROM client')
-        res.json(users.rows)
+        const income = await db.query('SELECT * FROM income')
+        res.json(income.rows)
     }
 
     async getOneIncome(req, res) {
         const id = req.params.id
 
-        const user = await db.query("SELECT * FROM client where id = $1", [id]);
+        const income = await db.query("SELECT * FROM income where id = $1", [id]);
 
-        res.json(user.rows[0])
+        res.json(income.rows[0])
     }
 
     async updateIncome(req, res) {
         const {
-            id,
-            name,
-            surname,
-            middlename,
-            passport_id,
-            login,
-            password,
-            district,
-            income,
-            expenses,
+            sum,
+            year,
+            client_id
         } = req.body;
 
-        const user = await db.query(
-            "UPDATE client set name = $1, surname = $2, middlename = $3, passport_id = $4, login = $5, password = $6, district = $7, income = $8, expenses = $9 where id = $10 RETURNING *",
+        const income = await db.query(
+            "UPDATE income set sum = $1, year = $2, client_id = $3 where id = $4 RETURNING *",
             [
-                name,
-                surname,
-                middlename,
-                passport_id,
-                login,
-                password,
-                district,
-                income,
-                expenses,
-                id,
+                sum,
+                year,
+                client_id,
             ]
         );
     }
@@ -70,9 +48,9 @@ class IncomeController {
     async deleteIncome(req, res) {
         const id = req.params.id
 
-        const user = await db.query("DELETE * FROM client where id = $1", [id]);
+        const income = await db.query("DELETE * FROM income where id = $1", [id]);
 
-        res.json(user.rows[0])
+        res.json(income.rows[0])
     }
 
 }
