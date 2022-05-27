@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import DataForm from "./dataForm";
 
 function Table({ list, colNames, width = "auto", height = "auto" }) {
   return (
