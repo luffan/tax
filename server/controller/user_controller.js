@@ -35,6 +35,7 @@ class UserController {
     }
 
     async updateUser(req, res) {
+        try {
         const {
             id,
             name,
@@ -60,6 +61,11 @@ class UserController {
             ]
         );
         res.json(id);
+        } catch (e) {
+            let message = [];
+            message.push('Failed to update user');
+            throw new BadRequestException(message);
+        }
     }
 
     async deleteUser(req, res) {
