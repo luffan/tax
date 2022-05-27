@@ -6,7 +6,7 @@ import {createOrUpdateWorker, deleteWorker, getWorkers} from "./actions/workers_
 import {createOrUpdatePayment, deletePayment, getPayments} from "./actions/payments_action";
 import {createOrUpdateIncome, deleteIncome, getIncomes} from "./actions/incomes_action";
 import {createOrUpdateExpenses, deleteExpenses, getExpenses} from "./actions/expenses_action";
-import DataForm from "./components/dataForm";
+import React from "react";
 
 const App = () => {
     const userCols = ["u_id", "u_name", "u_surname", "u_middlename", "u_passport_id", "u_login", "u_password", "u_district"];
@@ -19,10 +19,11 @@ const App = () => {
     return (
         <div>
             <DataTable colNames={userCols} getData={getUsers} createOrUpdate={createOrUpdateUsers}
-                       onDelete={deleteUser}/>
+                       onDelete={deleteUser} />
             <br/>
             <br/>
-            <DataTable colNames={taxCols} getData={getTaxes} createOrUpdate={createOrUpdateTaxes} onDelete={deleteTax}/>
+            <DataTable colNames={taxCols} getData={getTaxes} createOrUpdate={createOrUpdateTaxes}
+                       onDelete={deleteTax}/>
             <br/>
             <br/>
             <DataTable colNames={workerCols} getData={getWorkers} createOrUpdate={createOrUpdateWorker}

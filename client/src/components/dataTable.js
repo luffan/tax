@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import {useEffect} from "react";
 import Table from "./table";
 import DataForm from "./dataForm";
-import {createOrUpdateUsers} from "../actions/users_action";
 import DeleteForm from "./deleteForm";
 
 function DataTable({colNames, getData, createOrUpdate, onDelete}) {
@@ -56,6 +55,5 @@ function DataTable({colNames, getData, createOrUpdate, onDelete}) {
         </div>
     );
 }
-
 
 export default DataTable;
