@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-import { getUsers } from "./actions/users_action";
-
-import DataTable from "./components/dataTable";
-import { getTaxes } from "./actions/taxes_action";
-import { getWorkers } from "./actions/workers_action";
-import { getPayments } from "./actions/payments_action";
-import { getIncomes } from "./actions/incomes_action";
-import { getExpenses } from "./actions/expenses_action";
-=======
 import {createOrUpdateUsers, getUsers} from "./actions/users_action";
 
 import DataTable from "./components/dataTable";
@@ -17,7 +7,6 @@ import {getPayments} from "./actions/payments_action";
 import {getIncomes} from "./actions/incomes_action";
 import {getExpenses} from "./actions/expenses_action";
 import DataForm from "./components/dataForm";
->>>>>>> 3c6c551169e50d0e6131b4edacf05a769e8a076d
 
 const App = () => {
   const userCols = [
