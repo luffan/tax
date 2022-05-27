@@ -7,8 +7,10 @@ create TABLE client(
     login VARCHAR(50),
     password VARCHAR(50),
     district VARCHAR(50),
-    income REAL,
-    expenses REAL
+    income_id INTEGER,
+    expenses_id INTEGER,
+    FOREIGN KEY (income_id) REFERENCES income (id),
+    FOREIGN KEY (expenses_id) REFERENCES expenses (id)
 );
 
 create TABLE tax(
