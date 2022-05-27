@@ -64,7 +64,7 @@ class UserController {
         } catch (e) {
             let message = [];
             message.push('Failed to update user');
-            throw new BadRequestException(message);
+            res.sendStatus(500);
         }
     }
 

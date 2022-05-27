@@ -42,20 +42,18 @@ class WorkerController {
       } = req.body;
 
       const worker = await db.query(
-        "UPDATE worker set name = $1, surname = $2, middlename = $3, passport_id = $4, login = $5, password = $6, district = $7, income_id = $8, expenses_id = $9 where id = $10 RETURNING *",
+        "UPDATE worker set name = $1, surname = $2, middlename = $3, login = $4, password = $5 where id = $6 RETURNING *",
         [
           name,
           surname,
           middlename,
-          passport_id,
           login,
           password,
-          district,
-          income_id,
-          expenses_id,
           id,
         ]
       );
+
+      res.json(id)
     }
 
   async deleteWorker(req, res) {

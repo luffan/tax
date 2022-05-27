@@ -30,6 +30,7 @@ class IncomeController {
 
     async updateIncome(req, res) {
         const {
+            id,
             sum,
             year,
             client_id
@@ -41,8 +42,10 @@ class IncomeController {
                 sum,
                 year,
                 client_id,
+                id
             ]
         );
+        res.json(id)
     }
 
     async deleteIncome(req, res) {

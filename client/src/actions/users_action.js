@@ -42,3 +42,13 @@ export var createOrUpdateUsers = async (user) => {
         alert(e)
     }
 }
+
+export var deleteUser = async (id) => {
+    try {
+        const response = await axios.delete(`http://localhost:8080/api/user/${id}`)
+        return response.data
+    } catch (e) {
+        alert(e.response.data.message)
+    }
+
+}
