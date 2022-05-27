@@ -62,7 +62,7 @@ class UserController {
                 id,
             ]
         );
-        res.json(res.data.status);
+        res.json(id);
     }
 
     async deleteUser(req, res) {
