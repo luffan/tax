@@ -11,22 +11,23 @@ export var getIncomes = async () => {
 
 export var createOrUpdateIncome = async (income) => {
     try {
+        console.log(income[3]);
         if (income[0] === "") {
             await axios.post(
                 `http://localhost:8080/api/income`,
                 {
                     "sum": income[1],
                     "year": income[2],
-                    "client_id": income[3]
+                    "client_id": income[3],
                 })
         } else {
-            await axios.post(
+            await axios.put(
                 `http://localhost:8080/api/income`,
                 {
                     "id": income[0],
                     "sum": income[1],
                     "year": income[2],
-                    "client_id": income[3]
+                    "client_id": income[3],
                 })
         }
     } catch (e) {

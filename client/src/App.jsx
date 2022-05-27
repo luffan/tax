@@ -9,12 +9,12 @@ import {createOrUpdateExpenses, getExpenses} from "./actions/expenses_action";
 import DataForm from "./components/dataForm";
 
 const App = () => {
-    const userCols = ["id", "name", "surname", "middlename", "passport_id", "login", "password", "district"];
-    const taxCols = ["id", "cost", "expiration_date", "client_id", "payment_id"];
-    const workerCols = ["id", "name", "surname", "middlename", "login", "password"];
-    const paymentCols = ["id", "name", "surname", "middlename", "passport_id", "login", "password", "district"];
-    const incomeCols = ["id", "sum", "year", "client_id"];
-    const expensesCols = ["id1", "sum1", "year1", "client_id1"];
+    const userCols = ["u_id", "u_name", "u_surname", "u_middlename", "u_passport_id", "u_login", "u_password", "u_district"];
+    const taxCols = ["t_id", "t_cost", "t_expiration_date", "t_client_id", "t_payment_id"];
+    const workerCols = ["w_id", "w_name", "w_surname", "w_middlename", "w_login", "w_password"];
+    const paymentCols = ["p_id", "p_name", "p_surname", "p_middlename", "p_passport_id", "p_login", "p_password", "p_district"];
+    const incomeCols = ["i_id", "i_sum", "i_year", "i_clientId"];
+    const expensesCols = ["e_id", "e_sum", "e_year", "e_client_id"];
 
     return (
         <div>
