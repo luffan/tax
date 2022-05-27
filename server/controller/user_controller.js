@@ -2,22 +2,26 @@ const db = require("../db");
 
 class UserController {
     async createUser(req, res) {
-        const { name, surname, middlename, passport_id, login, password, district } = req.body
+        try {
+            const { name, surname, middlename, passport_id, login, password, district } = req.body
 
-        const newUser = await db.query(
-            "INSERT INTO client (name, surname, middlename, passport_id, login, password, district) values ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
-            [
-                name,
-                surname,
-                middlename,
-                passport_id,
-                login,
-                password,
-                district,
-            ]
-        );
+            const newUser = await db.query(
+                "INSERT INTO client (name, surname, middlename, passport_id, login, password, district) values ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+                [
+                    name,
+                    surname,
+                    middlename,
+                    passport_id,
+                    login,
+                    password,
+                    district,
+                ]
+            );
 
-        res.json(newUser.rows[0]);
+            res.json(newUser.rows[0]);
+        } catch (e) {
+            res.sendStatus(500);
+        }
 
     }
 
@@ -36,20 +40,8 @@ class UserController {
 
     async updateUser(req, res) {
         try {
-        const {
-            id,
-            name,
-            surname,
-            middlename,
-            passport_id,
-            login,
-            password,
-            district,
-        } = req.body;
-
-        const user = await db.query(
-            "UPDATE client set name = $1, surname = $2, middlename = $3, passport_id = $4, login = $5, password = $6, district = $7 WHERE id = $8 RETURNING *",
-            [
+            const {
+                id,
                 name,
                 surname,
                 middlename,
@@ -57,14 +49,24 @@ class UserController {
                 login,
                 password,
                 district,
-                id,
-            ]
-        );
-        res.json(id);
+            } = req.body;
+
+            const user = await db.query(
+                "UPDATE client set name = $1, surname = $2, middlename = $3, passport_id = $4, login = $5, password = $6, district = $7 WHERE id = $8 RETURNING *",
+                [
+                    name,
+                    surname,
+                    middlename,
+                    passport_id,
+                    login,
+                    password,
+                    district,
+                    id,
+                ]
+            );
+            res.json(id);
         } catch (e) {
-            let message = [];
-            message.push('Failed to update user');
-            throw new BadRequestException(message);
+            res.sendStatus(500);
         }
     }
 
