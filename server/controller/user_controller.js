@@ -20,7 +20,7 @@ class UserController {
 
             res.json(newUser.rows[0]);
         } catch (e) {
-            res.sendStatus(500);
+            res.status(500).send("Failed create user");
         }
 
     }
@@ -66,7 +66,7 @@ class UserController {
             );
             res.json(id);
         } catch (e) {
-            res.sendStatus(500);
+            res.status(500).send("Failed update user");
         }
     }
 
