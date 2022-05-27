@@ -1,8 +1,11 @@
 import React from 'react';
+import { getUsers } from './actions/users_action';
 
-function App () {
+function App() {
+  var users = getUsers();
+  console.log(users);
   return (
-    <div>Initialization</div>
+    <div>users</div>
   );
 }
 
