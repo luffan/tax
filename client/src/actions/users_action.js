@@ -7,5 +7,4 @@ export var getUsers = async () => {
     } catch (e) {
         alert(e.response.data.message)
     }
-
 }
