@@ -12,6 +12,11 @@ class TaxController {
     res.json(newTax.rows[0]);
   }
 
+  async getTaxes(req, res) {
+    const users = await db.query("SELECT * FROM tax");
+    res.json(users.rows);
+  }
+
   async getTaxByUserAndPayment(res, req) {
     const id = req.query.id;
 

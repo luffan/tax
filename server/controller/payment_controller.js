@@ -1,11 +1,9 @@
 const db = require("../db");
 
 class PaymentController {
-  async getPayments(res, req) {
-    const id = req.query.id;
-
+  async getPayments(req, res) {
     const payments = await db.query("SELECT * FROM payment");
-
+    console.log(payments.rows);
     res.json(payments.rows);
   }
 

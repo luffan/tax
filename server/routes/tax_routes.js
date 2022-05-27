@@ -3,6 +3,6 @@ const router = new Router();
 const taxController = require("../controller/tax_controller");
 
 router.post("/tax", taxController.createTax);
-router.get("/tax", taxController.getTaxByUserAndPayment);
+router.get("/tax", taxController.getTaxes);
 
 module.exports = router;
