@@ -2,10 +2,10 @@ const db = require("../db");
 
 class UserController {
     async createUser(req, res) {
-        const {name, surname, middlename, passport_id, login, password, district, income_id, expenses_id} = req.body
+        const {name, surname, middlename, passport_id, login, password, district} = req.body
 
         const newUser = await db.query(
-          "INSERT INTO client (name, surname, middlename, passport_id, login, password, district, income_id, expenses_id) values ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
+          "INSERT INTO client (name, surname, middlename, passport_id, login, password, district) values ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
           [
             name,
             surname,
@@ -14,12 +14,10 @@ class UserController {
             login,
             password,
             district,
-            income_id,
-            expenses_id,
           ]
         );
 
-    res.json(newPerson.rows[0]);
+    res.json(newUser.rows[0]);
   }
 
   async getUsers(req, res) {
@@ -45,8 +43,6 @@ class UserController {
         login,
         password,
         district,
-        income_id,
-        expenses_id,
       } = req.body;
 
       const user = await db.query(
@@ -59,8 +55,6 @@ class UserController {
           login,
           password,
           district,
-          income_id,
-          expenses_id,
           id,
         ]
       );

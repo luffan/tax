@@ -1,3 +1,5 @@
+psql \! chcp 1251
+
 create TABLE client(
     id SERIAL PRIMARY KEY,
     name VARCHAR(50),
@@ -6,11 +8,7 @@ create TABLE client(
     passport_id VARCHAR(50),
     login VARCHAR(50),
     password VARCHAR(50),
-    district VARCHAR(50),
-    income_id INTEGER,
-    expenses_id INTEGER,
-    FOREIGN KEY (income_id) REFERENCES income (id),
-    FOREIGN KEY (expenses_id) REFERENCES expenses (id)
+    district VARCHAR(50)
 );
 
 create TABLE tax(
@@ -36,7 +34,7 @@ create TABLE worker(
     surname VARCHAR(50),
     middlename VARCHAR(50),
     login VARCHAR(50),
-    password VARCHAR(50),
+    password VARCHAR(50)
 );
 
 create TABLE income(
@@ -44,7 +42,7 @@ create TABLE income(
     sum REAL,
     year smallint,
     client_id INTEGER,
-    FOREIGN KEY (client_id) REFERENCES client (id),
+    FOREIGN KEY (client_id) REFERENCES client (id)
 );
 
 create TABLE expenses(
@@ -52,5 +50,5 @@ create TABLE expenses(
     sum REAL,
     year smallint,
     client_id INTEGER,
-    FOREIGN KEY (client_id) REFERENCES client (id),
+    FOREIGN KEY (client_id) REFERENCES client (id)
 );
