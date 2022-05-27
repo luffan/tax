@@ -4,7 +4,6 @@ const db = require('../db')
 class ExpensesController {
     async createExpenses(req, res) {
         const {sum, year, client_id} = req.body
-
         const newExpenses = await db.query(
             "INSERT INTO expenses (sum, year, client_id) values ($1, $2, $3) RETURNING *",
             [
