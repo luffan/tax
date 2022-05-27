@@ -1,5 +1,4 @@
-const db = require('../db')
-
+const db = require("../db");
 
 class UserController {
     async createUser(req, res) {
@@ -20,21 +19,21 @@ class UserController {
           ]
         );
 
-        res.json(newPerson.rows[0])
-    }
+    res.json(newPerson.rows[0]);
+  }
 
-    async getUsers(req, res) {
-        const users = await db.query('SELECT * FROM client')
-        res.json(users.rows)
-    }
+  async getUsers(req, res) {
+    const users = await db.query("SELECT * FROM client");
+    res.json(users.rows);
+  }
 
-    async getOneUser(req, res) {
-        const id = req.params.id
+  async getOneUser(req, res) {
+    const id = req.params.id;
 
-        const user = await db.query("SELECT * FROM client where id = $1", [id]);
+    const user = await db.query("SELECT * FROM client where id = $1", [id]);
 
-        res.json(user.rows[0])
-    }
+    res.json(user.rows[0]);
+  }
 
     async updateUser(req, res) {
       const {
@@ -67,14 +66,13 @@ class UserController {
       );
     }
 
-    async deleteUser(req, res) {
-        const id = req.params.id
+  async deleteUser(req, res) {
+    const id = req.params.id;
 
-        const user = await db.query("DELETE * FROM client where id = $1", [id]);
-        
-        res.json(user.rows[0])
-    }
+    const user = await db.query("DELETE * FROM client where id = $1", [id]);
 
+    res.json(user.rows[0]);
+  }
 }
 
-module.exports = new UserController()
+module.exports = new UserController();
