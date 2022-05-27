@@ -26,8 +26,11 @@ function DataTable({colNames, getData}) {
 
 
     async function useSubmit(list) {
-        createOrUpdateUsers(list);
+        console.log(1);
+        await createOrUpdateUsers(list);
+        console.log(2);
         const data = await getData();
+        console.log(3);
         setData(data);
     }
 

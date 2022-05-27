@@ -11,7 +11,6 @@ export var getUsers = async () => {
 
 export var createOrUpdateUsers = async (user) => {
     try {
-        console.log(user);
         if (user[0] === "") {
             await axios.post(
                 `http://localhost:8080/api/user`,
@@ -37,6 +36,7 @@ export var createOrUpdateUsers = async (user) => {
                     "password": user[6],
                     "district": user[7]
                 })
+        console.log(user[0]);
         }
     } catch (e) {
         alert(e)
