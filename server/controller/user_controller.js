@@ -26,16 +26,24 @@ class UserController {
     }
 
     async getUsers(req, res) {
-        const users = await db.query("SELECT * FROM client");
-        res.json(users.rows);
+        try {
+            const users = await db.query("SELECT * FROM client");
+            res.json(users.rows);
+        } catch (e) {
+            res.sendStatus(500);
+        }
     }
 
     async getOneUser(req, res) {
-        const id = req.params.id;
+        try {
+            const id = req.params.id;
 
-        const user = await db.query("SELECT * FROM client where id = $1", [id]);
+            const user = await db.query("SELECT * FROM client where id = $1", [id]);
 
-        res.json(user.rows[0]);
+            res.json(user.rows[0]);
+        } catch (e) {
+            res.sendStatus(500);
+        }
     }
 
     async updateUser(req, res) {
@@ -71,11 +79,15 @@ class UserController {
     }
 
     async deleteUser(req, res) {
-        const id = req.params.id;
+        try {
+            const id = req.params.id;
 
-        const user = await db.query("DELETE * FROM client where id = $1", [id]);
+            const user = await db.query("DELETE * FROM client where id = $1", [id]);
 
-        res.json(user.rows[0]);
+            res.json(user.rows[0]);
+        } catch (e) {
+            res.sendStatus(500);
+        }
     }
 }
 
