@@ -12,7 +12,7 @@ export var getUsers = async () => {
 export var createOrUpdateUsers = async (user) => {
     try {
         if (user[0] === "") {
-            await axios.post(
+           var result = await axios.post(
                 `http://localhost:8080/api/user`,
                 {
                     "name": user[1],
@@ -23,8 +23,11 @@ export var createOrUpdateUsers = async (user) => {
                     "password": user[6],
                     "district": user[7]
                 })
+                if (result.status === 500) {
+                    throw new Error('Failed add user');
+                }
         } else {
-            await axios.put(
+          var response = await axios.put(
                 `http://localhost:8080/api/user`,
                 {
                     "id": user[0],
@@ -36,6 +39,9 @@ export var createOrUpdateUsers = async (user) => {
                     "password": user[6],
                     "district": user[7]
                 })
+                if (response.status === 500) {
+                    throw new Error('Failed update user');
+                }
         console.log(user[0]);
         }
     } catch (e) {
