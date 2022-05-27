@@ -7,5 +7,4 @@ export var getTaxes = async () => {
     } catch (e) {
         alert(e.response.data.message)
     }
-
 }

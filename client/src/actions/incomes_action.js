@@ -31,6 +31,9 @@ export var createOrUpdateIncome = async (income) => {
                 })
         }
     } catch (e) {
-        alert(e)
+        window.onerror = function() {
+            alert('Error message: '+ e);
+            return true;
+        }
     }
 }
