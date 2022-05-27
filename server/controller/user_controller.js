@@ -5,7 +5,7 @@ class UserController {
         const {name, surname, middlename, passport_id, login, password, district} = req.body
 
         const newUser = await db.query(
-          "INSERT INTO client (name, surname, middlename, passport_id, login, password, district) values ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
+          "INSERT INTO client (name, surname, middlename, passport_id, login, password, district) values ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
           [
             name,
             surname,
@@ -17,7 +17,7 @@ class UserController {
           ]
         );
 
-    res.json(newPerson.rows[0]);
+    res.json(newUser.rows[0]);
   }
 
   async getUsers(req, res) {
