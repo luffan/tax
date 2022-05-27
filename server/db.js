@@ -7,5 +7,4 @@ const pool = new Pool({
     database: 'test',
 })
 
-
 module.exports = pool
