@@ -2,26 +2,29 @@ const db = require("../db");
 
 class UserController {
     async createUser(req, res) {
-        const {name, surname, middlename, passport_id, login, password, district} = req.body
+        const { name, surname, middlename, passport_id, login, password, district } = req.body
+        try {
+            if (password < 4) {
+                throw 'Too short password';
+            }
 
-        if (password < 4 ) {
-            throw 'Too short password';
-          }
+            const newUser = await db.query(
+                "INSERT INTO client (name, surname, middlename, passport_id, login, password, district) values ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+                [
+                    name,
+                    surname,
+                    middlename,
+                    passport_id,
+                    login,
+                    password,
+                    district,
+                ]
+            );
 
-        const newUser = await db.query(
-            "INSERT INTO client (name, surname, middlename, passport_id, login, password, district) values ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
-            [
-                name,
-                surname,
-                middlename,
-                passport_id,
-                login,
-                password,
-                district,
-            ]
-        );
-
-        res.json(newUser.rows[0]);
+            res.json(newUser.rows[0]);
+        } catch (e) {
+            alert(e);
+        }
     }
 
     async getUsers(req, res) {
