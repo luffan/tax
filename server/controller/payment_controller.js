@@ -3,7 +3,6 @@ const db = require("../db");
 class PaymentController {
   async getPayments(req, res) {
     const payments = await db.query("SELECT * FROM payment");
-    console.log(payments.rows);
     res.json(payments.rows);
   }
 
