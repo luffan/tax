@@ -23,6 +23,7 @@ export var createOrUpdateUsers = async (user) => {
                     "password": user[6],
                     "district": user[7]
                 })
+
         } else {
             await axios.put(
                 `http://localhost:8080/api/user`,
@@ -36,9 +37,20 @@ export var createOrUpdateUsers = async (user) => {
                     "password": user[6],
                     "district": user[7]
                 })
-        console.log(user[0]);
+
+            console.log(user[0]);
         }
     } catch (e) {
         alert(e)
     }
+}
+
+export var deleteUser = async (id) => {
+    try {
+        const response = await axios.delete(`http://localhost:8080/api/user/${id}`)
+        return response.data
+    } catch (e) {
+        alert(e.response.data.message)
+    }
+
 }

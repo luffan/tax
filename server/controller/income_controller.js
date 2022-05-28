@@ -3,54 +3,77 @@ const db = require('../db')
 
 class IncomeController {
     async createIncome(req, res) {
-        const {sum, year, client_id} = req.body
+        try {
+            const { sum, year, client_id } = req.body
 
-        const newIncome = await db.query(
-            "INSERT INTO income (sum, year, client_id) values ($1, $2, $3) RETURNING *",
-            [
-                sum, year, client_id
-            ]
-        );
+            const newIncome = await db.query(
+                "INSERT INTO income (sum, year, client_id) values ($1, $2, $3) RETURNING *",
+                [
+                    parseInt(sum), parseInt(year), parseInt(client_id)
+                ]
+            );
 
-        res.json(newIncome.rows[0])
+            res.json(newIncome.rows[0])
+        } catch (e) {
+            res.sendStatus(500);
+        }
     }
 
     async getIncome(req, res) {
-        const income = await db.query('SELECT * FROM income')
-        res.json(income.rows)
+        try {
+            const income = await db.query('SELECT * FROM income')
+            res.json(income.rows)
+        } catch (e) {
+            res.sendStatus(500);
+        }
     }
 
     async getOneIncome(req, res) {
-        const id = req.params.id
+        try {
+            const id = req.params.id
 
-        const income = await db.query("SELECT * FROM income where id = $1", [id]);
+            const income = await db.query("SELECT * FROM income where id = $1", [id]);
 
-        res.json(income.rows[0])
+            res.json(income.rows[0])
+        } catch (e) {
+            res.sendStatus(500);
+        }
     }
 
     async updateIncome(req, res) {
-        const {
-            sum,
-            year,
-            client_id
-        } = req.body;
-
-        const income = await db.query(
-            "UPDATE income set sum = $1, year = $2, client_id = $3 where id = $4 RETURNING *",
-            [
+        try {
+            const {
+                id,
                 sum,
                 year,
-                client_id,
-            ]
-        );
+                client_id
+            } = req.body;
+
+            const income = await db.query(
+                "UPDATE income set sum = $1, year = $2, client_id = $3 where id = $4 RETURNING *",
+                [
+                    sum,
+                    year,
+                    client_id,
+                    id
+                ]
+            );
+            res.json(id)
+        } catch (e) {
+            res.sendStatus(500);
+        }
     }
 
     async deleteIncome(req, res) {
-        const id = req.params.id
+        try {
+            const id = req.params.id
 
-        const income = await db.query("DELETE * FROM income where id = $1", [id]);
+            const income = await db.query("DELETE * FROM income where id = $1", [id]);
 
-        res.json(income.rows[0])
+            res.json(income.rows[0])
+        } catch (e) {
+            res.sendStatus(500);
+        }
     }
 
 }

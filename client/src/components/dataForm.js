@@ -4,8 +4,9 @@ function DataForm({columnNames, onSubmit}) {
     function submit() {
         var args = [];
         columnNames.forEach(el => {
-                console.log(el);
                 args.push(document.getElementById(el).value);
+                console.log(document.getElementById(el).value);
+                console.log(el);
             }
         )
         onSubmit(args);

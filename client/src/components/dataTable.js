@@ -2,9 +2,9 @@ import React, {useState} from "react";
 import {useEffect} from "react";
 import Table from "./table";
 import DataForm from "./dataForm";
-import {createOrUpdateUsers} from "../actions/users_action";
+import DeleteForm from "./deleteForm";
 
-function DataTable({colNames, getData}) {
+function DataTable({colNames, getData, createOrUpdate, onDelete}) {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -26,11 +26,16 @@ function DataTable({colNames, getData}) {
 
 
     async function useSubmit(list) {
-        console.log(1);
-        await createOrUpdateUsers(list);
-        console.log(2);
+        console.log(list);
+        await createOrUpdate(list);
         const data = await getData();
-        console.log(3);
+        setData(data);
+    }
+
+    async function useDelete(id) {
+        console.log(id);
+        await onDelete(id);
+        const data = await getData();
         setData(data);
     }
 
@@ -46,9 +51,9 @@ function DataTable({colNames, getData}) {
         <div>
             <Table list={data} colNames={colNames}/>
             <DataForm columnNames={colNames} onSubmit={useSubmit}/>
+            <DeleteForm headerItem={colNames[0]} onDelete={useDelete}/>
         </div>
     );
 }
-
 
 export default DataTable;

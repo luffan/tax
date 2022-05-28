@@ -1,4 +1,4 @@
-psql \! chcp 1251
+psql \! chcp 1251;
 
 create TABLE client(
     id SERIAL PRIMARY KEY,
