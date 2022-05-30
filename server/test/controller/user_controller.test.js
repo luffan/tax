@@ -9,20 +9,21 @@ describe("GET /user", () => {
         name: "name",
         surname: "surname",
         middlename: "middlename",
-        passport_id: "passprotId",
+        passport_id: "passportId",
         login: "login",
         password: "password",
         district: "Minsk",
       });
 
-      const response = await request(app.app).get("api/user/id").send(newUser.body.id);
+      const req = '/api/user/' + newUser.body.id.toString();
+      const response = await request(app.app).get(req).send();
 
       expect(response.body).toEqual({
-        id: newId,
+        id: newUser.body.id,
         name: "name",
         surname: "surname",
         middlename: "middlename",
-        passport_id: "passprotId",
+        passport_id: "passportId",
         login: "login",
         password: "password",
         district: "Minsk",
@@ -78,7 +79,7 @@ describe("POST /user", () => {
     });
   });
 
-  describe("when the fields is empty", () => {
+  describe("when fields are empty", () => {
     test("Should return a 403 satus code", async () => {
       const bodies = [
         { name: "name" },
@@ -91,7 +92,7 @@ describe("POST /user", () => {
       ];
 
       for (const body of bodies) {
-        const response = await request(app.app).post("api/users").send(body);
+        const response = await request(app.app).post("api/user").send(body);
         expect(response.statusCode).toBe(403);
       }
     });
