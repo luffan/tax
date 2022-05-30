@@ -5,6 +5,11 @@ class UserController {
         try {
             const { name, surname, middlename, passport_id, login, password, district } = req.body
 
+            if (!name || !surname || !middlename || !passport_id || !login || !password || !district) {
+                res.sendStatus(500);
+                return;
+            }
+
             const newUser = await db.query(
                 "INSERT INTO client (name, surname, middlename, passport_id, login, password, district) values ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
                 [
@@ -58,6 +63,11 @@ class UserController {
                 password,
                 district,
             } = req.body;
+
+            if (!id) {
+                res.statusCode(500);
+                return;
+            }
 
             const user = await db.query(
                 "UPDATE client set name = $1, surname = $2, middlename = $3, passport_id = $4, login = $5, password = $6, district = $7 WHERE id = $8 RETURNING *",
