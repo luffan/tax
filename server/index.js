@@ -22,4 +22,8 @@ app.use("/api", incomeRouter);
 app.use("/api", expensesRouter);
 app.use("/api", workerRouter);
 
-app.listen(PORT, () => console.log("server started on port %s", PORT));
+const server = app.listen(PORT, () => console.log("server started on port %s", PORT));
+
+//export default app;
+module.exports.app = app;
+module.exports.server = server;
