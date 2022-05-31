@@ -5,6 +5,11 @@ class TaxController {
     try {
       const { cost, expiration_date, client_id, payment_id } = req.body;
 
+      if (!cost || !expiration_date || !client_id || !payment_id) {
+        res.sendStatus(500);
+        return;
+      }
+
       const newTax = await db.query(
         "INSERT INTO tax (cost, expiration_date, client_id, payment_id) values ($1, $2, $3, $4) RETURNING *",
         [cost, expiration_date, client_id, payment_id]
@@ -25,11 +30,25 @@ class TaxController {
     }
   }
 
+  async getOneTax(req, res) {
+    try {
+      const id = req.params.id;
+
+      const user = await db.query("SELECT * FROM tax where id = $1", [id]);
+
+      res.json(user.rows[0]);
+    } catch (e) {
+      res.sendStatus(500);
+    }
+  }
+
   async getTaxByUserAndPayment(res, req) {
     try {
       const id = req.query.id;
 
-      const taxs = await db.query("SELECT * FROM tax where client_id = $1", [id]);
+      const taxs = await db.query("SELECT * FROM tax where client_id = $1", [
+        id,
+      ]);
 
       res.json(taxs.rows);
     } catch (e) {
@@ -39,20 +58,16 @@ class TaxController {
 
   async updateTax(req, res) {
     try {
-      const {
-        id,
-        cost, expiration_date, client_id, payment_id
-      } = req.body;
+      const { id, cost, expiration_date, client_id, payment_id } = req.body;
+
+      if (!id) {
+        res.sendStatus(500);
+        return;
+      }
 
       const tax = await db.query(
         "UPDATE tax set cost = $1, expiration_date = $2, client_id = $3, payment_id = $4 WHERE id = $5 RETURNING *",
-        [
-          cost,
-          expiration_date,
-          client_id,
-          payment_id,
-          id,
-        ]
+        [cost, expiration_date, client_id, payment_id, id]
       );
       res.json(id);
     } catch (e) {

@@ -30,6 +30,11 @@ class PaymentController {
                 amount,
             } = req.body;
 
+            if (!id) {
+                res.statusCode(500);
+                return;
+            }
+
             const payment = await db.query(
                 "UPDATE payment set date = $1, amount = $2 WHERE id = $3 RETURNING *",
                 [
@@ -49,6 +54,11 @@ class PaymentController {
             const {
                 date, amount
             } = req.body;
+
+            if (!date || !amount) {
+                res.statusCode(500);
+                return;
+            }
 
             const newTax = await db.query(
                 "INSERT INTO payment (date, amount) values ($1, $2) RETURNING *",

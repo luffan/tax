@@ -1,111 +1,97 @@
 import request from "supertest";
 var app = require("../../index.js");
 
-describe("User controller tests", () => {
+describe("Worker controller tests", () => {
   afterAll(() => {
     app.server.close();
   });
 
-  describe("Update /user", () => {
+  describe("Update /worker", () => {
     test("should response with a 200 status code", async () => {
-      const newUser = await request(app.app).post("/api/user").send({
+      const newWorker = await request(app.app).post("/api/worker").send({
         name: "name",
         surname: "surname",
         middlename: "middlename",
-        passport_id: "passprotId",
         login: "login",
         password: "password",
-        district: "Minsk",
       });
 
-      const response = await request(app.app).put("/api/user").send({
-        id: newUser.body.id,
+      const response = await request(app.app).put("/api/worker").send({
+        id: newWorker.body.id,
         name: "name1",
         surname: "surname1",
         middlename: "middlename1",
-        passport_id: "passprotId1",
         login: "login1",
         password: "password1",
-        district: "Minsk1",
       });
 
       expect(response.statusCode).toBe(200);
 
-      const req = "/api/user/" + newUser.body.id.toString();
+      const req = "/api/worker/" + newWorker.body.id.toString();
       await request(app.app).delete(req).send();
     });
 
     test("should be update by id", async () => {
-      const newUser = await request(app.app).post("/api/user").send({
+      const newWorker = await request(app.app).post("/api/worker").send({
         name: "name",
         surname: "surname",
         middlename: "middlename",
-        passport_id: "passprotId",
         login: "login",
         password: "password",
-        district: "Minsk",
       });
 
-      const response = await request(app.app).put("/api/user").send({
-        id: newUser.body.id,
+      const response = await request(app.app).put("/api/worker").send({
+        id: newWorker.body.id,
         name: "name1",
         surname: "surname1",
         middlename: "middlename1",
-        passport_id: "passprotId1",
         login: "login1",
         password: "password1",
-        district: "Minsk1",
       });
 
-      expect(response.body).toBe(newUser.body.id);
+      expect(response.body).toBe(newWorker.body.id);
 
-      const req = "/api/user/" + newUser.body.id.toString();
+      const req = "/api/worker/" + newWorker.body.id.toString();
       await request(app.app).delete(req).send();
     });
 
     test("should not be update by id", async () => {
-      const newUser = await request(app.app).post("/api/user").send({
+      const newWorker = await request(app.app).post("/api/worker").send({
         name: "name",
         surname: "surname",
         middlename: "middlename",
-        passport_id: "passprotId",
         login: "login",
         password: "password",
-        district: "Minsk",
       });
 
-      const wrongReq = "/api/user/" + 1;
+      const wrongReq = "/api/worker/" + 1;
       const response = await request(app.app).put(wrongReq).send({
-        id: newUser.body.id,
+        id: newWorker.body.id,
         name: "name1",
         surname: "surname1",
         middlename: "middlename1",
-        passport_id: "passprotId1",
         login: "login1",
         password: "password1",
-        district: "Minsk1",
       });
 
-      expect(newUser.body.id).not.toBe(response.body.id);
+      expect(newWorker.body.id).not.toBe(response.body.id);
 
-      const req = "/api/user/" + newUser.body.id.toString();
+      const req = "/api/worker/" + newWorker.body.id.toString();
       await request(app.app).delete(req).send();
     });
   });
 
-  describe("GET /user", () => {
+  describe("GET /worker", () => {
     test("should response with a 200 status code", async () => {
-      const newUser = await request(app.app).post("/api/user").send({
+      const newWorker = await request(app.app).post("/api/worker").send({
         name: "name",
         surname: "surname",
         middlename: "middlename",
-        passport_id: "passprotId",
         login: "login",
         password: "password",
-        district: "Minsk",
       });
 
-      const req = "/api/user/" + newUser.body.id.toString();
+      const req = "/api/worker/" + newWorker.body.id.toString();
       const response = await request(app.app).get(req).send();
 
       expect(response.statusCode).toBe(200);
@@ -114,117 +100,103 @@ describe("User controller tests", () => {
     });
 
     test("should be equal by id", async () => {
-      const newUser = await request(app.app).post("/api/user").send({
+      const newWorker = await request(app.app).post("/api/worker").send({
         name: "name",
         surname: "surname",
         middlename: "middlename",
-        passport_id: "passprotId",
         login: "login",
         password: "password",
-        district: "Minsk",
       });
 
-      const req = "/api/user/" + newUser.body.id.toString();
+      const req = "/api/worker/" + newWorker.body.id.toString();
       const response = await request(app.app).get(req).send();
 
       expect(response.body).toEqual({
-        id: newUser.body.id,
+        id: newWorker.body.id,
         name: "name",
         surname: "surname",
         middlename: "middlename",
-        passport_id: "passprotId",
         login: "login",
         password: "password",
-        district: "Minsk",
       });
 
       await request(app.app).delete(req).send();
     });
 
     test("should not be equal by id", async () => {
-      const newUser = await request(app.app).post("/api/user").send({
+      const newWorker = await request(app.app).post("/api/worker").send({
         name: "name",
         surname: "surname",
         middlename: "middlename",
-        passport_id: "passprotId",
         login: "login",
         password: "password",
-        district: "Minsk",
       });
 
-      const wrongReq = "/api/user/" + 1;
+      const wrongReq = "/api/worker/" + 1;
       const response = await request(app.app).get(wrongReq).send();
 
       expect(response.body).toEqual(
         expect.not.objectContaining({
-          id: newUser.body.id,
+          id: newWorker.body.id,
           name: "name",
           surname: "surname",
           middlename: "middlename",
-          passport_id: "passprotId",
           login: "login",
           password: "password",
-          district: "Minsk",
         })
       );
 
-      const req = "/api/user/" + newUser.body.id.toString();
+      const req = "/api/worker/" + newWorker.body.id.toString();
       await request(app.app).delete(req).send();
     });
   });
 
-  describe("POST /user", () => {
+  describe("POST /worker", () => {
     describe("Positive test(when user paseed all fields)", () => {
       test("should response with a 200 status code", async () => {
-        const response = await request(app.app).post("/api/user").send({
+        const response = await request(app.app).post("/api/worker").send({
           name: "name",
           surname: "surname",
           middlename: "middlename",
-          passport_id: "passprotId",
           login: "login",
           password: "password",
-          district: "Minsk",
         });
 
         expect(response.statusCode).toBe(200);
 
-        const req = "/api/user/" + response.body.id.toString();
+        const req = "/api/worker/" + response.body.id.toString();
         await request(app.app).delete(req).send();
       });
 
       test("should specify json as the content type in the http header", async () => {
-        const response = await request(app.app).post("/api/user").send({
+        const response = await request(app.app).post("/api/worker").send({
           name: "name",
           surname: "surname",
           middlename: "middlename",
-          passport_id: "passprotId",
           login: "login",
           password: "password",
-          district: "Minsk",
         });
 
         expect(response.headers["content-type"]).toEqual(
           expect.stringContaining("json")
         );
 
-        const req = "/api/user/" + response.body.id.toString();
+        const req = "/api/worker/" + response.body.id.toString();
         await request(app.app).delete(req).send();
       });
 
       test("should contain a id in the response body", async () => {
-        const response = await request(app.app).post("/api/user").send({
+        const response = await request(app.app).post("/api/worker").send({
           name: "name",
           surname: "surname",
           middlename: "middlename",
-          passport_id: "passprotId",
           login: "login",
           password: "password",
-          district: "Minsk",
         });
 
         expect(response.body.id).toBeDefined();
 
-        const req = "/api/user/" + response.body.id.toString();
+        const req = "/api/worker/" + response.body.id.toString();
         await request(app.app).delete(req).send();
       });
     });
@@ -235,14 +207,12 @@ describe("User controller tests", () => {
           { name: "name" },
           { surname: "surname" },
           { middlename: "middlename" },
-          { passport_id: "passprot_id" },
           { login: "login" },
           { password: "password" },
-          { district: "ditrict" },
         ];
 
         for (const body of bodies) {
-          const response = await request(app.app).post("/api/user").send(body);
+          const response = await request(app.app).post("/api/worker").send(body);
 
           expect(response.statusCode).toBe(500);
         }

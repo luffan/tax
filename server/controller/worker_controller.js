@@ -5,6 +5,11 @@ class WorkerController {
     try {
       const { name, surname, middlename, login, password } = req.body
 
+      if (!name || !surname || !middlename || !login || !password) {
+        res.sendStatus(500);
+        return;
+    }
+
       const newWorker = await db.query(
         "INSERT INTO worker (name, surname, middlename, login, password) values ($1, $2, $3, $4, $5) RETURNING *",
         [
@@ -53,6 +58,11 @@ class WorkerController {
         login,
         password,
       } = req.body;
+
+      if (!id) {
+        res.statusCode(500);
+        return;
+    }
 
       const worker = await db.query(
         "UPDATE worker set name = $1, surname = $2, middlename = $3, login = $4, password = $5 where id = $6 RETURNING *",
