@@ -8,19 +8,34 @@ describe("Tax controller tests", () => {
 
   describe("Update /tax", () => {
     test("should response with a 200 status code", async () => {
+      const mockClient = await request(app.app).post("/api/tax").send({
+        name: "name",
+        surname: "surname",
+        middlename: "middlename",
+        passport_id: "passprotId",
+        login: "login",
+        password: "password",
+        district: "Minsk",
+      });
+
+      const mockPayment = await request(app.app).post("/api/payment").send({
+        date: "2021-04-12",
+        amount: 500,
+      });
+
       const newTax = await request(app.app).post("/api/tax").send({
         cost: 500,
         expiration_date: "2021-04-12",
-        client_id: 173,
-        payment_id: 3,
+        client_id: mockClient.body.id,
+        payment_id: mockPayment.body.id,
       });
 
       const response = await request(app.app).put("/api/tax").send({
         id: newTax.body.id,
         cost: 400,
-        expiration_date: "2021-04-12",
-        client_id: 174,
-        payment_id: 4,
+        expiration_date: "2021-03-12",
+        client_id: mockClient.body.id,
+        payment_id: mockPayment.body.id,
       });
 
       expect(response.statusCode).toBe(200);
@@ -30,19 +45,34 @@ describe("Tax controller tests", () => {
     });
 
     test("should be update by id", async () => {
+      const mockClient = await request(app.app).post("/api/tax").send({
+        name: "name",
+        surname: "surname",
+        middlename: "middlename",
+        passport_id: "passprotId",
+        login: "login",
+        password: "password",
+        district: "Minsk",
+      });
+
+      const mockPayment = await request(app.app).post("/api/payment").send({
+        date: "2021-04-12",
+        amount: 500,
+      });
+
       const newTax = await request(app.app).post("/api/tax").send({
         cost: 500,
         expiration_date: "2021-04-12",
-        client_id: 173,
-        payment_id: 3,
+        client_id: mockClient.body.id,
+        payment_id: mockPayment.body.id,
       });
 
       const response = await request(app.app).put("/api/tax").send({
         id: newTax.body.id,
         cost: 400,
-        expiration_date: "2022-04-31",
-        client_id: 174,
-        payment_id: 4,
+        expiration_date: "2022-04-29",
+        client_id: mockClient.body.id,
+        payment_id: mockPayment.body.id,
       });
 
       expect(response.body).toBe(newTax.body.id);
@@ -52,11 +82,26 @@ describe("Tax controller tests", () => {
     });
 
     test("should not be update by id", async () => {
+      const mockClient = await request(app.app).post("/api/tax").send({
+        name: "name",
+        surname: "surname",
+        middlename: "middlename",
+        passport_id: "passprotId",
+        login: "login",
+        password: "password",
+        district: "Minsk",
+      });
+
+      const mockPayment = await request(app.app).post("/api/payment").send({
+        date: "2021-04-12",
+        amount: 500,
+      });
+
       const newTax = await request(app.app).post("/api/tax").send({
         cost: 500,
         expiration_date: "2021-04-12",
-        client_id: 173,
-        payment_id: 3,
+        client_id: mockClient.body.id,
+        payment_id: mockPayment.body.id,
       });
 
       const wrongReq = "/api/tax/" + 1;
@@ -64,8 +109,8 @@ describe("Tax controller tests", () => {
         id: newTax.body.id,
         cost: 400,
         expiration_date: "2021-04-12",
-        client_id: 173,
-        payment_id: 4,
+        client_id: mockClient.body.id,
+        payment_id: mockPayment.body.id,
       });
 
       expect(newTax.body.id).not.toBe(response.body.id);
@@ -77,11 +122,26 @@ describe("Tax controller tests", () => {
 
   describe("GET /tax", () => {
     test("should response with a 200 status code", async () => {
+      const mockClient = await request(app.app).post("/api/tax").send({
+        name: "name",
+        surname: "surname",
+        middlename: "middlename",
+        passport_id: "passprotId",
+        login: "login",
+        password: "password",
+        district: "Minsk",
+      });
+
+      const mockPayment = await request(app.app).post("/api/payment").send({
+        date: "2021-04-12",
+        amount: 500,
+      });
+
       const newTax = await request(app.app).post("/api/tax").send({
         cost: 500,
         expiration_date: "2021-04-12",
-        client_id: 173,
-        payment_id: 3,
+        client_id: mockClient.body.id,
+        payment_id: mockPayment.body.id,
       });
 
       const req = "/api/tax/" + newTax.body.id.toString();
@@ -93,11 +153,26 @@ describe("Tax controller tests", () => {
     });
 
     test("should be equal by id", async () => {
+      const mockClient = await request(app.app).post("/api/tax").send({
+        name: "name",
+        surname: "surname",
+        middlename: "middlename",
+        passport_id: "passprotId",
+        login: "login",
+        password: "password",
+        district: "Minsk",
+      });
+
+      const mockPayment = await request(app.app).post("/api/payment").send({
+        date: "2021-04-12",
+        amount: 500,
+      });
+
       const newTax = await request(app.app).post("/api/tax").send({
         cost: 500,
         expiration_date: "2021-04-12",
-        client_id: 173,
-        payment_id: 3,
+        client_id: mockClient.body.id,
+        payment_id: mockPayment.body.id,
       });
 
       const req = "/api/tax/" + newTax.body.id.toString();
@@ -107,19 +182,34 @@ describe("Tax controller tests", () => {
         id: newTax.body.id,
         cost: 500,
         expiration_date: "2021-04-12",
-        client_id: 173,
-        payment_id: 3,
+        client_id: mockClient.body.id,
+        payment_id: mockPayment.body.id,
       });
 
       await request(app.app).delete(req).send();
     });
 
     test("should not be equal by id", async () => {
+      const mockClient = await request(app.app).post("/api/tax").send({
+        name: "name",
+        surname: "surname",
+        middlename: "middlename",
+        passport_id: "passprotId",
+        login: "login",
+        password: "password",
+        district: "Minsk",
+      });
+
+      const mockPayment = await request(app.app).post("/api/payment").send({
+        date: "2021-04-12",
+        amount: 500,
+      });
+
       const newTax = await request(app.app).post("/api/tax").send({
         cost: 500,
         expiration_date: "2021-04-12",
-        client_id: 173,
-        payment_id: 3,
+        client_id: mockClient.body.id,
+        payment_id: mockPayment.body.id,
       });
 
       const wrongReq = "/api/tax/" + 1;
@@ -129,9 +219,9 @@ describe("Tax controller tests", () => {
         expect.not.objectContaining({
           id: newTax.body.id,
           cost: 500,
-        expiration_date: "2021-04-12",
-        client_id: 173,
-        payment_id: 3,
+          expiration_date: "2021-04-12",
+          client_id: mockClient.body.id,
+          payment_id: mockPayment.body.id,
         })
       );
 
@@ -143,11 +233,26 @@ describe("Tax controller tests", () => {
   describe("POST /tax", () => {
     describe("Positive test(when user paseed all fields)", () => {
       test("should response with a 200 status code", async () => {
+        const mockClient = await request(app.app).post("/api/tax").send({
+          name: "name",
+          surname: "surname",
+          middlename: "middlename",
+          passport_id: "passprotId",
+          login: "login",
+          password: "password",
+          district: "Minsk",
+        });
+
+        const mockPayment = await request(app.app).post("/api/payment").send({
+          date: "2021-04-12",
+          amount: 500,
+        });
+
         const response = await request(app.app).post("/api/tax").send({
           cost: 500,
-        expiration_date: "2021-04-12",
-        client_id: 173,
-        payment_id: 3,
+          expiration_date: "2021-04-12",
+          client_id: mockClient.body.id,
+          payment_id: mockPayment.body.id,
         });
 
         expect(response.statusCode).toBe(200);
@@ -157,11 +262,26 @@ describe("Tax controller tests", () => {
       });
 
       test("should specify json as the content type in the http header", async () => {
+        const mockClient = await request(app.app).post("/api/tax").send({
+          name: "name",
+          surname: "surname",
+          middlename: "middlename",
+          passport_id: "passprotId",
+          login: "login",
+          password: "password",
+          district: "Minsk",
+        });
+
+        const mockPayment = await request(app.app).post("/api/payment").send({
+          date: "2021-04-12",
+          amount: 500,
+        });
+
         const response = await request(app.app).post("/api/tax").send({
           cost: 500,
-        expiration_date: "2021-04-12",
-        client_id: 173,
-        payment_id: 3,
+          expiration_date: "2021-04-12",
+          client_id: mockClient.body.id,
+          payment_id: mockPayment.body.id,
         });
 
         expect(response.headers["content-type"]).toEqual(
@@ -173,11 +293,26 @@ describe("Tax controller tests", () => {
       });
 
       test("should contain a id in the response body", async () => {
+        const mockClient = await request(app.app).post("/api/tax").send({
+          name: "name",
+          surname: "surname",
+          middlename: "middlename",
+          passport_id: "passprotId",
+          login: "login",
+          password: "password",
+          district: "Minsk",
+        });
+
+        const mockPayment = await request(app.app).post("/api/payment").send({
+          date: "2021-04-12",
+          amount: 500,
+        });
+
         const response = await request(app.app).post("/api/tax").send({
           cost: 500,
-        expiration_date: "2021-04-12",
-        client_id: 173,
-        payment_id: 3,
+          expiration_date: "2021-04-12",
+          client_id: mockClient.body.id,
+          payment_id: mockPayment.body.id,
         });
 
         expect(response.body.id).toBeDefined();
@@ -189,11 +324,26 @@ describe("Tax controller tests", () => {
 
     describe("Negative test(when the fields is empty)", () => {
       test("Should return a 403 satus code", async () => {
+        const mockClient = await request(app.app).post("/api/tax").send({
+          name: "name",
+          surname: "surname",
+          middlename: "middlename",
+          passport_id: "passprotId",
+          login: "login",
+          password: "password",
+          district: "Minsk",
+        });
+
+        const mockPayment = await request(app.app).post("/api/payment").send({
+          date: "2021-04-12",
+          amount: 500,
+        });
+
         const bodies = [
           { cost: 500 },
           { expiration_date: "2021-04-12" },
-          { client_id: 173 },
-          { payment_id: 4 },
+          { client_id: mockClient.body.id },
+          { payment_id: mockPayment.body.id },
         ];
 
         for (const body of bodies) {
