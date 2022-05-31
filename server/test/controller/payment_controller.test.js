@@ -3,6 +3,8 @@ var app = require("../../index.js");
 
 describe("Payment controller tests", () => {
   afterAll(() => {
+    app.server.connections = 0;
+    
     app.server.close();
   });
 

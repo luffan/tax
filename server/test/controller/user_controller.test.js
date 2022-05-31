@@ -5,6 +5,8 @@ var app = require("../../index.js");
 
 describe("User controller tests", () => {
   afterAll(() => {
+    app.server.connections = 0;
+    
     app.server.close();
   });
 

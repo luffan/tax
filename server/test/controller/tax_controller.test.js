@@ -3,12 +3,14 @@ var app = require("../../index.js");
 
 describe("Tax controller tests", () => {
   afterAll(() => {
+    app.server.connections = 0;
+
     app.server.close();
   });
 
   describe("Update /tax", () => {
     test("should response with a 200 status code", async () => {
-      const mockClient = await request(app.app).post("/api/tax").send({
+      const mockClient = await request(app.app).post("/api/user").send({
         name: "name",
         surname: "surname",
         middlename: "middlename",
@@ -45,7 +47,7 @@ describe("Tax controller tests", () => {
     });
 
     test("should be update by id", async () => {
-      const mockClient = await request(app.app).post("/api/tax").send({
+      const mockClient = await request(app.app).post("/api/user").send({
         name: "name",
         surname: "surname",
         middlename: "middlename",
@@ -82,7 +84,7 @@ describe("Tax controller tests", () => {
     });
 
     test("should not be update by id", async () => {
-      const mockClient = await request(app.app).post("/api/tax").send({
+      const mockClient = await request(app.app).post("/api/user").send({
         name: "name",
         surname: "surname",
         middlename: "middlename",
@@ -122,7 +124,7 @@ describe("Tax controller tests", () => {
 
   describe("GET /tax", () => {
     test("should response with a 200 status code", async () => {
-      const mockClient = await request(app.app).post("/api/tax").send({
+      const mockClient = await request(app.app).post("/api/user").send({
         name: "name",
         surname: "surname",
         middlename: "middlename",
@@ -153,7 +155,7 @@ describe("Tax controller tests", () => {
     });
 
     test("should be equal by id", async () => {
-      const mockClient = await request(app.app).post("/api/tax").send({
+      const mockClient = await request(app.app).post("/api/user").send({
         name: "name",
         surname: "surname",
         middlename: "middlename",
@@ -190,7 +192,7 @@ describe("Tax controller tests", () => {
     });
 
     test("should not be equal by id", async () => {
-      const mockClient = await request(app.app).post("/api/tax").send({
+      const mockClient = await request(app.app).post("/api/user").send({
         name: "name",
         surname: "surname",
         middlename: "middlename",
@@ -233,7 +235,7 @@ describe("Tax controller tests", () => {
   describe("POST /tax", () => {
     describe("Positive test(when user paseed all fields)", () => {
       test("should response with a 200 status code", async () => {
-        const mockClient = await request(app.app).post("/api/tax").send({
+        const mockClient = await request(app.app).post("/api/user").send({
           name: "name",
           surname: "surname",
           middlename: "middlename",
@@ -262,7 +264,7 @@ describe("Tax controller tests", () => {
       });
 
       test("should specify json as the content type in the http header", async () => {
-        const mockClient = await request(app.app).post("/api/tax").send({
+        const mockClient = await request(app.app).post("/api/user").send({
           name: "name",
           surname: "surname",
           middlename: "middlename",
@@ -293,7 +295,7 @@ describe("Tax controller tests", () => {
       });
 
       test("should contain a id in the response body", async () => {
-        const mockClient = await request(app.app).post("/api/tax").send({
+        const mockClient = await request(app.app).post("/api/user").send({
           name: "name",
           surname: "surname",
           middlename: "middlename",
@@ -324,7 +326,7 @@ describe("Tax controller tests", () => {
 
     describe("Negative test(when the fields is empty)", () => {
       test("Should return a 403 satus code", async () => {
-        const mockClient = await request(app.app).post("/api/tax").send({
+        const mockClient = await request(app.app).post("/api/user").send({
           name: "name",
           surname: "surname",
           middlename: "middlename",

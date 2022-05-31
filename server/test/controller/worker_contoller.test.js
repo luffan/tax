@@ -3,6 +3,8 @@ var app = require("../../index.js");
 
 describe("Worker controller tests", () => {
   afterAll(() => {
+    app.server.connections = 0;
+    
     app.server.close();
   });
 

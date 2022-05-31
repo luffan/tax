@@ -3,22 +3,34 @@ var app = require("../../index.js");
 
 describe("Expenses controller tests", () => {
   afterAll(() => {
+    app.server.connections = 0;
+
     app.server.close();
   });
 
   describe("Update /expenses", () => {
     test("should response with a 200 status code", async () => {
+      const mockClient = await request(app.app).post("/api/user").send({
+        name: "name",
+        surname: "surname",
+        middlename: "middlename",
+        passport_id: "passprotId",
+        login: "login",
+        password: "password",
+        district: "Minsk",
+      });
+
       const newUser = await request(app.app).post("/api/expenses").send({
         sum: 100,
         year: 2022,
-        client_id: 173,
+        client_id: mockClient.body.id,
       });
 
       const response = await request(app.app).put("/api/expenses").send({
         id: newUser.body.id,
         sum: 150,
         year: 2021,
-        client_id: 174,
+        client_id: mockClient.body.id,
       });
 
       expect(response.statusCode).toBe(200);
@@ -28,17 +40,27 @@ describe("Expenses controller tests", () => {
     });
 
     test("should be update by id", async () => {
+      const mockClient = await request(app.app).post("/api/user").send({
+        name: "name",
+        surname: "surname",
+        middlename: "middlename",
+        passport_id: "passprotId",
+        login: "login",
+        password: "password",
+        district: "Minsk",
+      });
+
       const newUser = await request(app.app).post("/api/expenses").send({
         sum: 100,
         year: 2022,
-        client_id: 173,
+        client_id: mockClient.body.id,
       });
 
       const response = await request(app.app).put("/api/expenses").send({
         id: newUser.body.id,
         sum: 150,
         year: 2021,
-        client_id: 174,
+        client_id: mockClient.body.id,
       });
 
       expect(response.body).toBe(newUser.body.id);
@@ -48,10 +70,20 @@ describe("Expenses controller tests", () => {
     });
 
     test("should not be update by id", async () => {
+      const mockClient = await request(app.app).post("/api/user").send({
+        name: "name",
+        surname: "surname",
+        middlename: "middlename",
+        passport_id: "passprotId",
+        login: "login",
+        password: "password",
+        district: "Minsk",
+      });
+
       const newUser = await request(app.app).post("/api/expenses").send({
         sum: 100,
         year: 2022,
-        client_id: 173,
+        client_id: mockClient.body.id,
       });
 
       const wrongReq = "/api/expenses/" + 1;
@@ -59,7 +91,7 @@ describe("Expenses controller tests", () => {
         id: newUser.body.id,
         sum: 150,
         year: 2021,
-        client_id: 174,
+        client_id: mockClient.body.id,
       });
 
       expect(newUser.body.id).not.toBe(response.body.id);
@@ -71,10 +103,20 @@ describe("Expenses controller tests", () => {
 
   describe("GET /expenses", () => {
     test("should response with a 200 status code", async () => {
+      const mockClient = await request(app.app).post("/api/user").send({
+        name: "name",
+        surname: "surname",
+        middlename: "middlename",
+        passport_id: "passprotId",
+        login: "login",
+        password: "password",
+        district: "Minsk",
+      });
+
       const newUser = await request(app.app).post("/api/expenses").send({
         sum: 100,
         year: 2022,
-        client_id: 173,
+        client_id: mockClient.body.id,
       });
 
       const req = "/api/expenses/" + newUser.body.id.toString();
@@ -86,10 +128,20 @@ describe("Expenses controller tests", () => {
     });
 
     test("should be equal by id", async () => {
+      const mockClient = await request(app.app).post("/api/user").send({
+        name: "name",
+        surname: "surname",
+        middlename: "middlename",
+        passport_id: "passprotId",
+        login: "login",
+        password: "password",
+        district: "Minsk",
+      });
+
       const newUser = await request(app.app).post("/api/expenses").send({
         sum: 100,
         year: 2022,
-        client_id: 173,
+        client_id: mockClient.body.id,
       });
 
       const req = "/api/expenses/" + newUser.body.id.toString();
@@ -99,17 +151,27 @@ describe("Expenses controller tests", () => {
         id: newUser.body.id,
         sum: 100,
         year: 2022,
-        client_id: 173,
+        client_id: mockClient.body.id,
       });
 
       await request(app.app).delete(req).send();
     });
 
     test("should not be equal by id", async () => {
+      const mockClient = await request(app.app).post("/api/user").send({
+        name: "name",
+        surname: "surname",
+        middlename: "middlename",
+        passport_id: "passprotId",
+        login: "login",
+        password: "password",
+        district: "Minsk",
+      });
+
       const newUser = await request(app.app).post("/api/expenses").send({
         sum: 100,
         year: 2022,
-        client_id: 173,
+        client_id: mockClient.body.id,
       });
 
       const wrongReq = "/api/expenses/" + 1;
@@ -120,7 +182,7 @@ describe("Expenses controller tests", () => {
           id: newUser.body.id,
           sum: 100,
           year: 2022,
-          client_id: 173,
+          client_id: mockClient.body.id,
         })
       );
 
@@ -132,10 +194,20 @@ describe("Expenses controller tests", () => {
   describe("POST /expenses", () => {
     describe("Positive test(when user paseed all fields)", () => {
       test("should response with a 200 status code", async () => {
+        const mockClient = await request(app.app).post("/api/user").send({
+          name: "name",
+          surname: "surname",
+          middlename: "middlename",
+          passport_id: "passprotId",
+          login: "login",
+          password: "password",
+          district: "Minsk",
+        });
+
         const response = await request(app.app).post("/api/expenses").send({
           sum: 100,
           year: 2022,
-          client_id: 173,
+          client_id: mockClient.body.id,
         });
 
         expect(response.statusCode).toBe(200);
@@ -145,10 +217,20 @@ describe("Expenses controller tests", () => {
       });
 
       test("should specify json as the content type in the http header", async () => {
+        const mockClient = await request(app.app).post("/api/user").send({
+          name: "name",
+          surname: "surname",
+          middlename: "middlename",
+          passport_id: "passprotId",
+          login: "login",
+          password: "password",
+          district: "Minsk",
+        });
+
         const response = await request(app.app).post("/api/expenses").send({
           sum: 100,
           year: 2022,
-          client_id: 173,
+          client_id: mockClient.body.id,
         });
 
         expect(response.headers["content-type"]).toEqual(
@@ -160,10 +242,20 @@ describe("Expenses controller tests", () => {
       });
 
       test("should contain a id in the response body", async () => {
+        const mockClient = await request(app.app).post("/api/user").send({
+          name: "name",
+          surname: "surname",
+          middlename: "middlename",
+          passport_id: "passprotId",
+          login: "login",
+          password: "password",
+          district: "Minsk",
+        });
+
         const response = await request(app.app).post("/api/expenses").send({
           sum: 100,
           year: 2022,
-          client_id: 173,
+          client_id: mockClient.body.id,
         });
 
         expect(response.body.id).toBeDefined();
@@ -175,7 +267,17 @@ describe("Expenses controller tests", () => {
 
     describe("Negative test(when the fields is empty)", () => {
       test("Should return a 403 satus code", async () => {
-        const bodies = [{ sum: 100 }, { year: 2022 }, { client_id: 173 }];
+        const mockClient = await request(app.app).post("/api/user").send({
+          name: "name",
+          surname: "surname",
+          middlename: "middlename",
+          passport_id: "passprotId",
+          login: "login",
+          password: "password",
+          district: "Minsk",
+        });
+
+        const bodies = [{ sum: 100 }, { year: 2022 }, { client_id: mockClient.body.id }];
 
         for (const body of bodies) {
           const response = await request(app.app)
