@@ -4,8 +4,8 @@ const expensesController = require('../controller/expenses_controller')
 
 router.post('/expenses',expensesController.createExpenses)
 router.get('/expenses',expensesController.getExpenses)
-router.get('/expenses/id',expensesController.getOneExpenses)
+router.get('/expenses/:id',expensesController.getOneExpenses)
 router.put('/expenses',expensesController.updateExpenses)
-router.delete('/expenses',expensesController.deleteExpenses)
+router.delete('/expenses/:id',expensesController.deleteExpenses)
 
 module.exports = router

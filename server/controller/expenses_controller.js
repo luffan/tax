@@ -5,6 +5,12 @@ class ExpensesController {
     async createExpenses(req, res) {
         try {
             const { sum, year, client_id } = req.body
+
+            if (!sum || !year || !client_id) {
+                res.statusCode(500);
+                return;
+            }
+
             const newExpenses = await db.query(
                 "INSERT INTO expenses (sum, year, client_id) values ($1, $2, $3) RETURNING *",
                 [
@@ -46,6 +52,11 @@ class ExpensesController {
                 year,
                 client_id
             } = req.body;
+
+            if (!id) {
+                res.statusCode(500);
+                return;
+            }
 
             const expenses = await db.query(
                 "UPDATE expenses set sum = $1, year = $2, client_id = $3 where id = $4 RETURNING *",

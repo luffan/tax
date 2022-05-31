@@ -10,17 +10,17 @@ describe("Tax controller tests", () => {
     test("should response with a 200 status code", async () => {
       const newTax = await request(app.app).post("/api/tax").send({
         cost: 500,
-        expiration_date: "2022-05-31",
-        client_id: 1,
-        payment_id: 1,
+        expiration_date: "2021-04-12",
+        client_id: 173,
+        payment_id: 3,
       });
 
       const response = await request(app.app).put("/api/tax").send({
         id: newTax.body.id,
         cost: 400,
-        expiration_date: "2022-05-31",
-        client_id: 2,
-        payment_id: 2,
+        expiration_date: "2021-04-12",
+        client_id: 174,
+        payment_id: 4,
       });
 
       expect(response.statusCode).toBe(200);
@@ -32,17 +32,17 @@ describe("Tax controller tests", () => {
     test("should be update by id", async () => {
       const newTax = await request(app.app).post("/api/tax").send({
         cost: 500,
-        expiration_date: "2022-05-31",
-        client_id: 1,
-        payment_id: 1,
+        expiration_date: "2021-04-12",
+        client_id: 173,
+        payment_id: 3,
       });
 
       const response = await request(app.app).put("/api/tax").send({
         id: newTax.body.id,
         cost: 400,
         expiration_date: "2022-04-31",
-        client_id: 2,
-        payment_id: 2,
+        client_id: 174,
+        payment_id: 4,
       });
 
       expect(response.body).toBe(newTax.body.id);
@@ -54,18 +54,18 @@ describe("Tax controller tests", () => {
     test("should not be update by id", async () => {
       const newTax = await request(app.app).post("/api/tax").send({
         cost: 500,
-        expiration_date: "2022-05-31",
-        client_id: 1,
-        payment_id: 1,
+        expiration_date: "2021-04-12",
+        client_id: 173,
+        payment_id: 3,
       });
 
       const wrongReq = "/api/tax/" + 1;
       const response = await request(app.app).put(wrongReq).send({
         id: newTax.body.id,
         cost: 400,
-        expiration_date: "2022-04-31",
-        client_id: 2,
-        payment_id: 2,
+        expiration_date: "2021-04-12",
+        client_id: 173,
+        payment_id: 4,
       });
 
       expect(newTax.body.id).not.toBe(response.body.id);
@@ -79,9 +79,9 @@ describe("Tax controller tests", () => {
     test("should response with a 200 status code", async () => {
       const newTax = await request(app.app).post("/api/tax").send({
         cost: 500,
-        expiration_date: "2022-05-31",
-        client_id: 1,
-        payment_id: 1,
+        expiration_date: "2021-04-12",
+        client_id: 173,
+        payment_id: 3,
       });
 
       const req = "/api/tax/" + newTax.body.id.toString();
@@ -95,9 +95,9 @@ describe("Tax controller tests", () => {
     test("should be equal by id", async () => {
       const newTax = await request(app.app).post("/api/tax").send({
         cost: 500,
-        expiration_date: "2022-05-31",
-        client_id: 1,
-        payment_id: 1,
+        expiration_date: "2021-04-12",
+        client_id: 173,
+        payment_id: 3,
       });
 
       const req = "/api/tax/" + newTax.body.id.toString();
@@ -106,9 +106,9 @@ describe("Tax controller tests", () => {
       expect(response.body).toEqual({
         id: newTax.body.id,
         cost: 500,
-        expiration_date: "2022-05-31",
-        client_id: 1,
-        payment_id: 1,
+        expiration_date: "2021-04-12",
+        client_id: 173,
+        payment_id: 3,
       });
 
       await request(app.app).delete(req).send();
@@ -117,9 +117,9 @@ describe("Tax controller tests", () => {
     test("should not be equal by id", async () => {
       const newTax = await request(app.app).post("/api/tax").send({
         cost: 500,
-        expiration_date: "2022-05-31",
-        client_id: 1,
-        payment_id: 1,
+        expiration_date: "2021-04-12",
+        client_id: 173,
+        payment_id: 3,
       });
 
       const wrongReq = "/api/tax/" + 1;
@@ -129,9 +129,9 @@ describe("Tax controller tests", () => {
         expect.not.objectContaining({
           id: newTax.body.id,
           cost: 500,
-          expiration_date: "2022-05-31",
-          client_id: 1,
-          payment_id: 1,
+        expiration_date: "2021-04-12",
+        client_id: 173,
+        payment_id: 3,
         })
       );
 
@@ -145,9 +145,9 @@ describe("Tax controller tests", () => {
       test("should response with a 200 status code", async () => {
         const response = await request(app.app).post("/api/tax").send({
           cost: 500,
-          expiration_date: "2022-05-31",
-          client_id: 1,
-          payment_id: 1,
+        expiration_date: "2021-04-12",
+        client_id: 173,
+        payment_id: 3,
         });
 
         expect(response.statusCode).toBe(200);
@@ -159,9 +159,9 @@ describe("Tax controller tests", () => {
       test("should specify json as the content type in the http header", async () => {
         const response = await request(app.app).post("/api/tax").send({
           cost: 500,
-          expiration_date: "2022-05-31",
-          client_id: 1,
-          payment_id: 1,
+        expiration_date: "2021-04-12",
+        client_id: 173,
+        payment_id: 3,
         });
 
         expect(response.headers["content-type"]).toEqual(
@@ -175,9 +175,9 @@ describe("Tax controller tests", () => {
       test("should contain a id in the response body", async () => {
         const response = await request(app.app).post("/api/tax").send({
           cost: 500,
-          expiration_date: "2022-05-31",
-          client_id: 1,
-          payment_id: 1,
+        expiration_date: "2021-04-12",
+        client_id: 173,
+        payment_id: 3,
         });
 
         expect(response.body.id).toBeDefined();
@@ -191,9 +191,9 @@ describe("Tax controller tests", () => {
       test("Should return a 403 satus code", async () => {
         const bodies = [
           { cost: 500 },
-          { expiration_date: "2022-05-31" },
-          { client_id: 1 },
-          { payment_id: 1 },
+          { expiration_date: "2021-04-12" },
+          { client_id: 173 },
+          { payment_id: 4 },
         ];
 
         for (const body of bodies) {
